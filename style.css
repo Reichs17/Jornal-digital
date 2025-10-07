@@ -1,18 +1,23 @@
-/* Reset básico */
+/* Reset básico melhorado */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Georgia", serif;
-  background:	#b22222;
-  color: #333;
-  line-height: 1.6;
+html {
+  font-size: 16px;
 }
 
-/* Cabeçalho fixo */
+body {
+  font-family: "Georgia", serif;
+  background: #b22222;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Cabeçalho fixo responsivo */
 .topo {
   position: fixed;
   top: 0;
@@ -20,22 +25,32 @@ body {
   background: #8b0008;
   color: white;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: clamp(10px, 3vw, 20px);
   box-shadow: 0 3px 6px rgba(0,0,0,0.2);
   z-index: 10;
+  gap: 15px;
 }
 
 .logo {
-  font-size: 1.8em;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
   font-weight: bold;
+  white-space: nowrap;
+}
+
+.topo nav {
+  flex: 1;
+  min-width: min-content;
 }
 
 .topo ul {
   list-style: none;
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: clamp(10px, 2vw, 20px);
+  justify-content: flex-end;
 }
 
 .topo a {
@@ -43,40 +58,47 @@ body {
   color: white;
   font-weight: bold;
   transition: color 0.3s;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  white-space: nowrap;
 }
 
 .topo a:hover {
   color: #ffd700;
 }
 
-/* Layout principal */
+/* Layout principal responsivo */
 .container {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 30px;
+  gap: clamp(20px, 4vw, 30px);
   max-width: 1200px;
-  margin: 100px auto 40px;
-  padding: 0 20px;
+  margin: clamp(80px, 12vw, 120px) auto 40px;
+  padding: 0 clamp(10px, 3vw, 20px);
+  width: 100%;
 }
 
 .principal {
   background: white;
-  padding: 20px;
+  padding: clamp(15px, 3vw, 25px);
   border-radius: 8px;
   box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
   animation: fadeIn 1s ease-in-out;
+  min-width: 0; /* Permite que o conteúdo se ajuste */
 }
 
 .principal img {
   width: 100%;
+  height: auto;
   border-radius: 8px;
-  margin: 20px 0;
+  margin: clamp(10px, 2vw, 20px) 0;
+  object-fit: cover;
 }
 
 .subtitulo {
   font-style: italic;
   color: #555;
   margin-bottom: 15px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .interacao {
@@ -87,28 +109,33 @@ button {
   background: #b30000;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: clamp(8px, 2vw, 12px) clamp(12px, 2vw, 18px);
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  width: 100%;
+  max-width: 200px;
 }
 
 button:hover {
   background: #800000;
 }
 
-/* Sidebar */
+/* Sidebar unificada */
 .sidebar {
   background: white;
-  padding: 20px;
+  padding: clamp(15px, 3vw, 25px);
   border-radius: 8px;
   box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+  min-width: 0; /* Permite que a sidebar se ajuste */
 }
 
 .sidebar h2 {
   margin-bottom: 15px;
   border-bottom: 2px solid #b30000;
   padding-bottom: 5px;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
 }
 
 .sidebar ul {
@@ -124,51 +151,22 @@ button:hover {
   color: #333;
   font-weight: bold;
   transition: color 0.3s;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  word-break: break-word;
 }
 
 .sidebar a:hover {
   color: #b30000;
 }
 
-.sidebar1
- {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-}
-
-.sidebar h2 {
-  margin-bottom: 15px;
-  border-bottom: 2px solid #b30000;
-  padding-bottom: 5px;
-}
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar li {
-  margin-bottom: 10px;
-}
-
-.sidebar a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-.sidebar a:hover {
-  color: #b30000;
-}
-
-/* Rodapé */
+/* Rodapé responsivo */
 footer {
   text-align: center;
-  padding: 20px;
+  padding: clamp(15px, 3vw, 25px);
   background: #333;
   color: white;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  margin-top: auto;
 }
 
 /* Animações */
@@ -177,81 +175,96 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsividade */
+/* Melhorias de responsividade */
 @media (max-width: 1024px) {
   .container {
-    grid-template-columns: 1fr; /* Coluna única para telas menores */
+    grid-template-columns: 1fr;
     gap: 20px;
   }
-
+  
   .topo {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 20px;
-  }
-
-  .topo ul {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-  .topo a {
-    font-size: 0.9em;
+    flex-direction: row;
+    padding: 12px 20px;
   }
 }
 
 @media (max-width: 768px) {
   .topo {
-    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 15px;
   }
-
+  
+  .topo ul {
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
   .logo {
-    font-size: 1.5em;
+    font-size: 1.4rem;
   }
-
+  
   .container {
+    margin-top: 100px;
     padding: 0 10px;
   }
-
-  .principal, .sidebar {
-    padding: 15px;
-  }
-
+  
   button {
-    padding: 8px 12px;
-    font-size: 0.9em;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .topo {
-    padding: 8px;
+    padding: 8px 10px;
   }
-
+  
   .logo {
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
-
+  
   .topo ul {
+    gap: 8px;
+  }
+  
+  .container {
+    margin: 90px auto 20px;
+    gap: 15px;
+  }
+  
+  .principal, .sidebar {
+    padding: 12px;
+    border-radius: 6px;
+  }
+  
+  .principal img {
+    margin: 8px 0;
+  }
+}
+
+/* Para telas muito pequenas (smartphones pequenos) */
+@media (max-width: 320px) {
+  .topo {
+    padding: 5px 8px;
+  }
+  
+  .topo ul {
+    flex-direction: column;
     gap: 5px;
   }
-
+  
   .container {
-    margin: 80px auto 20px;
-    padding: 0 5px;
+    margin: 120px auto 15px;
   }
+}
 
-  .principal img {
-    margin: 10px 0;
+/* Melhoria para telas muito grandes */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
   }
-
-  button {
-    padding: 6px 10px;
-    font-size: 0.8em;
-  }
-
-  footer {
-    font-size: 0.9em;
+  
+  body {
+    font-size: 18px;
   }
 }
